@@ -13,6 +13,8 @@ public class opossum : MonoBehaviour
     [SerializeField]
     Transform CastPoint;
 
+    [SerializeField]
+    LayerMask mask;
 
     [SerializeField]
     Transform Player;
@@ -58,47 +60,50 @@ public class opossum : MonoBehaviour
             StopChasingPlayer();
         }
 
-        //if (CanSeePlayer(agroRange))
-        // {
+        if (CanSeePlayer(agroRange))
+         {
 
-        // ChasePlayer();
-        // }
+         ChasePlayer();
+         }
 
-        // else
-        // {
-        // StopChasingPlayer();
-        // }
+         else
+         {
+         StopChasingPlayer();
+         }
 
     }
 
-    //bool CanSeePlayer (float distance)
-    // {
-    //bool val = false;
-    //  float castDist = distance;
+    bool CanSeePlayer (float distance)
+     {
+    bool val = false;
+      float castDist = distance;
 
 
-    // Vector2 endPos = CastPoint.position + Vector3.right * distance;
+     Vector2 endPos = CastPoint.position + gameObject.transform.right * distance;
 
-    // RaycastHit2D hit = Physics2D.Linecast(CastPoint.position , endPos, 1 << LayerMask.NameToLayer("Action"));
 
-    //  if (hit.collider != null)
-    // {
+        RaycastHit2D hit = Physics2D.Linecast(CastPoint.position , endPos);
 
-    //   if (hit.collider.gameObject.CompareTag("Player"))
-    //   {
-    //val = true;
-    //}
-    //  else
-    //  {
-    //val = false;
-    //  }
+      if (hit.collider != null)
+     {
+            
+       if (hit.collider.gameObject.CompareTag("Player"))
+       {
+                UnityEngine.Debug.Log(hit.collider.gameObject.tag);
+                val = true;
+    }
+      else
+      {
+    val = false;
+      }
 
-    //Debug.DrawLine(CastPoint.position, endPos, Color.blue);
+    
 
-    //}
-
-    // return val;
-    //}
+    }
+        
+        UnityEngine.Debug.DrawLine(CastPoint.position, endPos, Color.blue);
+        return val;
+    }
 
     void ChasePlayer()
     {
@@ -115,7 +120,7 @@ public class opossum : MonoBehaviour
         {
                       //move left 
             rbd2.velocity = new Vector2(-moveSpeed, 0);
-          
+            transform.localScale = new Vector2(1, 1);
         }
 
 

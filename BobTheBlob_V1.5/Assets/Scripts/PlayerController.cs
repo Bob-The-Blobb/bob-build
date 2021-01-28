@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetInt("CherryHigh", 0);
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
